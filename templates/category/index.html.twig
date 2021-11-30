@@ -3,10 +3,10 @@
 {% block title %}All categories{% endblock %}
 
 {% block body %}
-    <h1>Toutes les categories : </h1>
+    <h1>Toutes les categories </h1>
     {% for category in categories %}
         <div>
-            <a href="{{ path("category_show", { categoryName: category.name }) }}"><h2>{{ loop.index }} - Catégorie : {{ category.name }}</h2></a>
+            <a href="{{ path("category_show", { categoryName: category.name }) }}"><h3>{{ loop.index }} -  {{ category.name }}</h3></a>
 
             {# Lien vers la fiche de la série : #}
         </div>
@@ -14,7 +14,7 @@
         Aucune categorie trouvée.
     {% endfor %}
 
-    <a href="{{ path('app_index') }}">
-        Retour à l'accueil
+    <a href="{{ path('app_index') }}"><button type="button" class="btn btn-primary">
+        Retour à l'accueil</button>
     </a>
 {% endblock %}

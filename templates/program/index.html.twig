@@ -3,19 +3,37 @@
 {% block title %}All programs{% endblock %}
 
 {% block body %}
-    <h1>Toutes les séries de la table program : </h1>
-    {% for program in programs %}
-        <div>
-            <h2>{{ loop.index }} / {{ program.title }} - Catégorie : {{ program.category.name }}</h2>
-            <p>{{ program.summary }}</p>
-            {# Lien vers la fiche de la série : #}
-            <a href="{{ path("program_show", { id: program.id }) }}">Voir la fiche</a>
-        </div>
-    {% else %}
-        Aucune série trouvée.
-    {% endfor %}
-
-    <a href="{{ path('app_index') }}">
-        Retour à l'accueil
+<ul class="nav justify-content-end">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="#">Active</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled">Disabled</a>
+  </li>
+</ul>
+    <h1>Toutes les séries </h1>
+    <div class="container">
+    <div class="row g-4">
+        {% for program in programs %}
+            <div class="card" style="width: 18rem;" class="col-sm-6">
+                <div class="card-body">
+                    <h5 class="card-title">{{ loop.index }} / {{ program.title }} - Catégorie : {{ program.category.name }}</h5>
+                    <p class="card-text">{{ program.summary| striptags | slice(0, 250) }} [...] </p>
+                    <a href="{{ path("program_show", { id: program.id }) }}"> <button type="button" class="btn btn-primary">Voir la fiche </button> </a>
+                </div>
+            </div>
+        {% else %}
+            Aucune série trouvée.
+        {% endfor %}
+    </div>
+    </div>
+    <a href="{{ path('app_index') }}"><button type="button" class="btn btn-secondary">
+        Retour à l'accueil</button>
     </a>
 {% endblock %}

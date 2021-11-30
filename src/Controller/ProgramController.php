@@ -22,7 +22,7 @@ class ProgramController extends AbstractController
             ->getRepository(Program::class)
             ->findAll();
 
-    return $this->render('program/index.html.twig', [
+        return $this->render('program/index.html.twig', [
         'programs' => $programs ,
      ]);
     }
@@ -45,4 +45,5 @@ class ProgramController extends AbstractController
         'program' => $program,
     ]);
     }
+
 }
