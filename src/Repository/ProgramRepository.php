@@ -22,7 +22,7 @@ class ProgramRepository extends ServiceEntityRepository
     // /**
     //  * @return Program[] Returns an array of Program objects
     //  */
-    /*
+
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('p')
@@ -34,7 +34,7 @@ class ProgramRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Program
