@@ -15,6 +15,11 @@
             <h1 class="card-title">{{ program.title }}</h1>
             <p class="card-text">{{ program.summary }}</p>
             <p class="card-text">Catégorie : <a href="{{ path('category_index') }}">{{ program.category.name }}</a></p>
+
+            <h3>Les saisons disponibles</h3>
+            {% for season in program.seasons %}
+              <li> <a href="{{ path("program_season_show", {"program_id": program.id, "season_id": season.number })}}"> #{{season.number}} - {{season.description}} </a> </li>
+            {% endfor %}
          </div>
         </div>
     </div>

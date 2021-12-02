@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Saison #{{season.number }}{% endblock %}
+
+{% block body %}
+
+<h1> {{season.description}} de {{season.program.title}}</h1>
+<p> La {{season.number}}eme saison de {{season.program.title}} a été diffusée pour la première fois en {{season.year}}.
+Elle comprends {{season.episodes|length}} épisodes. </p>
+
+<h3> Liste des épisodes </h3>
+    {% for episode in season.episodes %}
+         <ol> <a href="{{ path("program_episode_show", {"program_id": season.program.id, "season_id": season.number, "episode_id": episode.number})}}"> {{episode.number}} - {{episode.title}} </a> </ol>
+    {% endfor %}
+
+    <a href="{{ path("program_show", {"id": season.program.id})}}"><button type="button" class="btn btn-primary">
+        Retour au programme </button>
+    </a>
+    <a href="{{ path('program_index') }}"><button type="button" class="btn btn-secondary">
+        Retour à la liste des programmes</button>
+    </a>
+{% endblock %}
