@@ -2,9 +2,13 @@
 
 {% block body %}
 <h2> Ajouter une nouvelle serie </h2>
-
-    {{ form_start(form) }}
+ <div class="form-group" class="form-control form-control-lg">
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {{ form_widget(form) }}
-    <button type="submit">Ajouter une série </button>
+      <div class="my-custom-class-for-errors">
+        {{ form_errors(form) }}
+    </div>
+    <button type="submit" class="btn btn-primary">Ajouter une série </button>
     {{ form_end(form) }}
+</div>
 {% endblock %}

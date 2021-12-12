@@ -16,10 +16,21 @@
             <p class="card-text">{{ program.summary }}</p>
             <p class="card-text">Catégorie : <a href="{{ path('category_index') }}">{{ program.category.name }}</a></p>
 
-            <h3>Les saisons disponibles</h3>
+            <h3>Saisons disponibles :</h3>
             {% for season in program.seasons %}
               <li> <a href="{{ path("program_season_show", {"program_id": program.id, "season_id": season.number })}}"> #{{season.number}} - {{season.description}} </a> </li>
+             {% else %}
+                <li>Aucune saison pour cette série</li>
             {% endfor %}
+
+            <h3>Acteurs :</h3>
+            <ul>
+                {% for actor in program.actors %}
+                    <li>{{ actor.name }} </li>
+                {% else %}
+                    <li>Aucun acteur pour cette série</li>
+                {% endfor %}
+            </ul>
          </div>
         </div>
     </div>
