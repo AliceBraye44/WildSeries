@@ -2,16 +2,19 @@
 // src/Controller/ProgramController.php
 namespace App\Controller;
 
-use App\Service\Slugify;
 use App\Entity\Season;
 use App\Entity\Episode;
 use App\Entity\Program;
+use App\Service\Slugify;
 use App\Form\ProgramType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 
 /**
 * @Route("/program", name="program_")
@@ -37,7 +40,7 @@ class ProgramController extends AbstractController
      *
      * @Route("/new", name="new")
      */
-    public function new(Request $request, Slugify $slugify) : Response
+    public function new(Request $request, Slugify $slugify, MailerInterface $mailer) : Response
     {
         // Create a new Category Object
         $program = new Program();
@@ -59,6 +62,16 @@ class ProgramController extends AbstractController
 
             // Flush the persisted object
             $entityManager->flush();
+
+            // Envoyer un mail lors qu'une nouvelle série est ajoutée
+            $email = (new Email())
+            ->from($this->getParameter('mailer_from'))
+            ->to('your_email@example.com')
+            ->subject('Une nouvelle série vient d\'être publiée !')
+            ->html($this->renderView('program/newProgramEmail.html.twig', ['program' => $program]));
+
+        $mailer->send($email);
+
             // Finally redirect to categories list
             return $this->redirectToRoute('program_index');
         }
