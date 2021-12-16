@@ -18,7 +18,7 @@
 
             <h3>Saisons disponibles :</h3>
             {% for season in program.seasons %}
-              <li> <a href="{{ path("program_season_show", {"program_id": program.id, "season_id": season.number })}}"> #{{season.number}} - {{season.description}} </a> </li>
+              <li> <a href="{{ path("program_season_show", {"slug": program.slug, "season_id": season.number })}}"> #{{season.number}} - {{season.description}} </a> </li>
              {% else %}
                 <li>Aucune saison pour cette série</li>
             {% endfor %}

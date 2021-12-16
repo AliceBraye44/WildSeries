@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Program;
+use App\Service\Slugify;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -11,6 +12,10 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
 
+    public function __construct(Slugify $slug)
+    {
+        $this->slug = $slug;
+    }
 
     public const PROGRAMS = [
         ["Title" => "The Hangover" ,  "Summary" => "Raisonnons, s'il rompait l'engagement, comme on lui objectait que je refusais dans les miennes. Mets-toi en sang, partie en argent et menue monnaie, il n'entre pas par la volonté de mon pouce gauche... Voyez-vous les légères traces de rouille de leurs anciens droits, y compris un roux de feu avec l'ennemi." , "Poster" => "https://images.unsplash.com/photo-1607335614785-e1436e859ebf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" , "Category" => 'category_0'],
@@ -30,6 +35,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             $program->setSummary($programInfos["Summary"]);
             $program->setPoster($programInfos["Poster"]);
             $program->setCategory($this->getReference($programInfos["Category"]));
+            $program->setSlug($this->slug->generate($programInfos["Title"]));
 
             for ($i=0; $i < count(ActorFixtures::ACTORS); $i++) {
                 $program->addActor($this->getReference('actor_' . $i));
